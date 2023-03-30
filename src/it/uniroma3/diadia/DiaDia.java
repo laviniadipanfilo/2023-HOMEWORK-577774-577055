@@ -46,9 +46,9 @@ public class DiaDia {
 		String istruzione; 
 		Scanner scannerDiLinee;
 
-		io.mostraMessaggio(MESSAGGIO_BENVENUTO);		
+		this.io.mostraMessaggio(MESSAGGIO_BENVENUTO);		
 		do		
-			istruzione = io.leggiRiga();
+			istruzione = this.io.leggiRiga();
 		while (!processaIstruzione(istruzione));
 	}   
 
@@ -60,7 +60,7 @@ public class DiaDia {
 	private boolean processaIstruzione(String istruzione) {
 		Comando comandoDaEseguire = new Comando(istruzione);
         if(comandoDaEseguire.getNome() == null) {
-        	io.mostraMessaggio("Non hai inserito il comando!");
+        	this.io.mostraMessaggio("Non hai inserito il comando!");
         }
 		else 
 		if (comandoDaEseguire.getNome().equals("fine")) {
@@ -75,9 +75,9 @@ public class DiaDia {
 		else if(comandoDaEseguire.getNome().equals("posa"))
 			this.posa(comandoDaEseguire.getParametro());
 		else
-			io.mostraMessaggio("Comando sconosciuto");
+			this.io.mostraMessaggio("Comando sconosciuto");
 		if (this.partita.vinta()) {
-			io.mostraMessaggio("Hai vinto!");
+			this.io.mostraMessaggio("Hai vinto!");
 			System.exit(1);
 			return true;
 		} else
@@ -92,7 +92,7 @@ public class DiaDia {
 	 */
 	private void aiuto() {
 		for(int i=0; i< elencoComandi.length; i++) 
-			io.mostraMessaggio(elencoComandi[i]+" ");
+			this.io.mostraMessaggio(elencoComandi[i]+" ");
 	}
 
 	/**
@@ -101,53 +101,53 @@ public class DiaDia {
 	 */
 	private void vai(String direzione) {
 		if(direzione==null) {
-			io.mostraMessaggio("Dove vuoi andare?");
-			io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
-			io.mostraMessaggio(partita.getGiocatore().getBorsa().getDescrizione());
+			this.io.mostraMessaggio("Dove vuoi andare?");
+			this.io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
+			this.io.mostraMessaggio(partita.getGiocatore().getBorsa().getDescrizione());
 			String istruzione;		
     		do		
-    			istruzione = io.leggiRiga();
+    			istruzione = this.io.leggiRiga();
     		while (!processaIstruzione(istruzione)); // prende l'istruzione fino a quando non vinco
 		}
 		Stanza prossimaStanza = null;
 		prossimaStanza = this.partita.getStanzaCorrente().getStanzaAdiacente(direzione);
 		if (prossimaStanza == null)
-			io.mostraMessaggio("Direzione inesistente");
+			this.io.mostraMessaggio("Direzione inesistente");
 		else {
 			this.partita.setStanzaCorrente(prossimaStanza);
 			int cfu = this.giocatore.getCfu();
 			this.giocatore.setCfu(cfu--);
 		}
-		io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
+		this.io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
 	}
 
 	/**
 	 * Comando "Fine".
 	 */
 	private void fine() {
-		io.mostraMessaggio("Grazie di aver giocato!");  // si desidera smettere
+		this.io.mostraMessaggio("Grazie di aver giocato!");  // si desidera smettere
 		System.exit(1);
 	}
 	
 	// attrezzo RIMOSSO dalla STANZA e AGGIUNTO nella BORSA
 	private void prendi (String nomeAttrezzo) {
 		if(this.partita.getStanzaCorrente().getNumeroAttrezzi() == 0) 
-			io.mostraMessaggio("Non ci sono attrezzi nella stanza");
+			this.io.mostraMessaggio("Non ci sono attrezzi nella stanza");
 		else {
 			if(nomeAttrezzo == null) {
-				io.mostraMessaggio("Che attrezzo vuoi prendere?");
+				this.io.mostraMessaggio("Che attrezzo vuoi prendere?");
 				this.partita.getStanzaCorrente().toString();
 				String istruzione;		
 	            do		
-	    			istruzione = io.leggiRiga();
+	    			istruzione = this.io.leggiRiga();
 	    		while (!processaIstruzione(istruzione)); // prende l'istruzione fino a quando non vinco
 			}
 			
 			 // ho trovato l'attrezzo
-			io.mostraMessaggio(nomeAttrezzo+" preso/a");
+			this.io.mostraMessaggio(nomeAttrezzo+" preso/a");
 			
 			if(!this.partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo)) 
-				io.mostraMessaggio("Attrezzo inesistente\n");
+				this.io.mostraMessaggio("Attrezzo inesistente\n");
 			else {
 				
 				Attrezzo attrezzo = new Attrezzo();
@@ -164,25 +164,25 @@ public class DiaDia {
 	// attrezzo RIMOSSO dalla BORSA e AGGIUNTO nella STANZA
 	public void posa(String nomeAttrezzo) {		//attrezzi rimosssi dalla borsa e messi nella stanza
 		if(this.partita.getGiocatore().getBorsa().getNumeroAttrezzi() == 0) 
-			io.mostraMessaggio("Non ci sono attrezzi nella borsa");
+			this.io.mostraMessaggio("Non ci sono attrezzi nella borsa");
 		else {
 			if(nomeAttrezzo == null) {
-				io.mostraMessaggio("Che attrezzo vuoi posare?");
+				this.io.mostraMessaggio("Che attrezzo vuoi posare?");
 				this.partita.getStanzaCorrente().toString();
 				String istruzione;		
 	            do		
-	    			istruzione = io.leggiRiga();
+	    			istruzione = this.io.leggiRiga();
 	    		while (!processaIstruzione(istruzione)); // prende l'istruzione fino a quando non vinco
 			}
 			
 			if(!this.partita.getGiocatore().getBorsa().hasAttrezzo(nomeAttrezzo))
-				io.mostraMessaggio("Attrezzo inesistente\n");
+				this.io.mostraMessaggio("Attrezzo inesistente\n");
 			else {
-				io.mostraMessaggio(nomeAttrezzo+" posato/a");
+				this.io.mostraMessaggio(nomeAttrezzo+" posato/a");
 			Attrezzo attrezzo = new Attrezzo();
 			attrezzo = this.partita.getGiocatore().getBorsa().getAttrezzo(nomeAttrezzo); // ho trovato l'attrezzo			
 			if(attrezzo == null) 
-				io.mostraMessaggio("Attrezzo inesistente\n");
+				this.io.mostraMessaggio("Attrezzo inesistente\n");
 			else {
 				int cfu = this.giocatore.getCfu();
 				this.giocatore.setCfu(cfu--);
