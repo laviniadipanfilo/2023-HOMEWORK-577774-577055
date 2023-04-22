@@ -1,6 +1,5 @@
 package it.uniroma3.diadia;
 
-
 import java.util.Scanner;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
@@ -17,7 +16,6 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  */
 
 public class Partita {
-// public final static int CFU_INIZIALI = 20;
 
 	private Stanza stanzaCorrente;
 	private Stanza stanzaVincente;
@@ -77,5 +75,12 @@ public class Partita {
 	public void setFinita() {
 		this.finita = true;
 	}	
+	
+	public boolean giocatoreIsVivo () {
+		if(this.giocatore.getCfu() > 0)
+			return true;
+		else
+			return false;
+	}
 }
 

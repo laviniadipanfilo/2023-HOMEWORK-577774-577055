@@ -33,6 +33,7 @@ public class Attrezzo {
 		
 	}
 
+
 	/**
 	 * Restituisce il nome identificatore dell'attrezzo
 	 * @return il nome identificatore dell'attrezzo
