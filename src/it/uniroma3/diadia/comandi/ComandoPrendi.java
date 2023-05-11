@@ -25,23 +25,29 @@ public class ComandoPrendi implements Comando {
     
 	@Override
 	public void esegui(Partita partita) {
-		if(partita.getStanzaCorrente().getNumeroAttrezzi() == 0) 
+		if(partita.getLabirinto().getEntrata().getNumeroAttrezzi() == 0) 
 			io.mostraMessaggio("non ci sono attrezzi nella stanza");
 		else {
 			if(this.nomeAttrezzo == null) {
 				io.mostraMessaggio("che attrezzo vuoi prendre?");
 				return;
 			}
-			if(!partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo))
+			if(!partita.getLabirinto().getEntrata().hasAttrezzo(nomeAttrezzo))
 				io.mostraMessaggio("attrezzo inesistente");
 		  else {
 			Attrezzo attrezzo = new Attrezzo();
-			attrezzo = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
+			attrezzo = partita.getLabirinto().getEntrata().getAttrezzo(nomeAttrezzo);
 			
 			int cfu = partita.getGiocatore().getCfu();
 			partita.getGiocatore().setCfu(cfu--);
-		    partita.getStanzaCorrente().removeAttrezzo(attrezzo); // attrezzo rimosso
-		    partita.getGiocatore().getBorsa().addAttrezzo(attrezzo); // attrezzo preso
+		    if(partita.getGiocatore().getBorsa().getPeso() + attrezzo.getPeso() <= partita.getGiocatore().getBorsa().getPesoMax()) {
+		    	partita.getLabirinto().getEntrata().removeAttrezzo(attrezzo); // attrezzo rimosso
+		        partita.getGiocatore().getBorsa().addAttrezzo(attrezzo); // attrezzo preso
+		    }
+		    
+		    else 
+		    	System.out.println("Attrezzo troppo pesante!");
+		    	
 		}
 	  }
 	}

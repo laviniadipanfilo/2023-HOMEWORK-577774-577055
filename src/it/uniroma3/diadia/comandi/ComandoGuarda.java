@@ -8,11 +8,11 @@ public class ComandoGuarda implements Comando {
 
 	private String parametro;
 	private IO io = new IOConsole();
-	 private static final String NOME = "guarda";
+	private static final String NOME = "guarda";
 	
 	@Override
 	public void esegui(Partita partita) {
-		io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
+		io.mostraMessaggio(partita.getLabirinto().getEntrata().getDescrizione());
 		io.mostraMessaggio(partita.getGiocatore().getBorsa().getDescrizione());
 		io.mostraMessaggio("CFU:" + partita.getGiocatore().getCfu());
 	}

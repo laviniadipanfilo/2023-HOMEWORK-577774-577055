@@ -39,7 +39,7 @@ public class ComandoPosa implements Comando {
 			int cfu = partita.getGiocatore().getCfu();
 			partita.getGiocatore().setCfu(cfu--);
 			partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
-			partita.getStanzaCorrente().addAttrezzo(attrezzo);
+			partita.getLabirinto().getEntrata().addAttrezzo(attrezzo);
 		  }
 		}
 	}

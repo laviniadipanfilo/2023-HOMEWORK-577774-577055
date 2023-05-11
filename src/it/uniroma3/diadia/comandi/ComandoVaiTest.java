@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 public class ComandoVaiTest {
@@ -21,7 +22,8 @@ public class ComandoVaiTest {
 	public void setUp() throws Exception {
 		comando = new ComandoVai("sud");
 		stanza = new Stanza("stanza");
-		partita = new Partita();
+		Labirinto lab = new Labirinto();
+		partita = new Partita(lab);
 		stanzaAd = new Stanza("stanza adiacente");
 	}
 
@@ -32,14 +34,14 @@ public class ComandoVaiTest {
 
 	@Test
 	public void testEseguiDirezioneInesistente () {
-	 partita.setStanzaCorrente(stanza);
+	 partita.getLabirinto().setEntrata(stanza);
 	 comando.esegui(partita); 
-     assertEquals(stanza, partita.getStanzaCorrente());
+     assertEquals(stanza, partita.getLabirinto().getEntrata());
 	}
 	
 	@Test
 	public void testEseguiDirezioneEsistente () {
-	 partita.setStanzaCorrente(stanza);
+	 partita.getLabirinto().setEntrata(stanza);
 	 stanza.impostaStanzaAdiacente("sud", stanzaAd);
 	 comando.setParametro("sud");
 	 comando.esegui(partita);

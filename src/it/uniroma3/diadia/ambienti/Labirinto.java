@@ -2,60 +2,42 @@ package it.uniroma3.diadia.ambienti;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
+/**
+ * Creare la classe Labirinto e modificare la
+classe Partita affinché non abbia la
+responsabilità della creazione del labirinto
+– Un labirinto ha una entrata (stanza di ingresso)
+ed una uscita (stanza vincente)
+– La classe Labirinto ha un metodo privato
+init() che inizializza il labirinto
+
+• Provare ad eseguire il codice del gioco prima e
+dopo le modifiche e verificare che il 
+comportamento sia rimasto invariato
+ * @author lavinia
+ *
+ */
+
 public class Labirinto {
+	private Stanza entrata;	//stanza di ingresso
+	private Stanza uscita;	//stanza vincente	
 	
-	private Stanza entrata;
-	private Stanza uscita;
-	
-	public Labirinto () {
-		creaStanze();
+	public static LabirintoBuilder newBuilder() {
+		return new LabirintoBuilder();
 	}
 	
-	  /**
-     * Crea tutte le stanze e le porte di collegamento
-     */
-    private void creaStanze() {
-
-		/* crea gli attrezzi */
-    	Attrezzo lanterna = new Attrezzo("lanterna",3);
-		Attrezzo osso = new Attrezzo("osso",1);
-    	
-		/* crea stanze del labirinto */
-		Stanza atrio = new Stanza("Atrio");
-		Stanza aulaN11 = new Stanza("Aula N11");
-		Stanza aulaN10 = new Stanza("Aula N10");
-		Stanza laboratorio = new Stanza("Laboratorio Campus");
-		Stanza biblioteca = new Stanza("Biblioteca");
-		
-		/* collega le stanze */
-		atrio.impostaStanzaAdiacente("nord", biblioteca);
-		atrio.impostaStanzaAdiacente("est", aulaN11);
-		atrio.impostaStanzaAdiacente("sud", aulaN10);
-		atrio.impostaStanzaAdiacente("ovest", laboratorio);
-		aulaN11.impostaStanzaAdiacente("est", laboratorio);
-		aulaN11.impostaStanzaAdiacente("ovest", atrio);
-		aulaN10.impostaStanzaAdiacente("nord", atrio);
-		aulaN10.impostaStanzaAdiacente("est", aulaN11);
-		aulaN10.impostaStanzaAdiacente("ovest", laboratorio);
-		laboratorio.impostaStanzaAdiacente("est", atrio);
-		laboratorio.impostaStanzaAdiacente("ovest", aulaN11);
-		biblioteca.impostaStanzaAdiacente("sud", atrio);
-
-        /* pone gli attrezzi nelle stanze */
-		aulaN10.addAttrezzo(lanterna);
-		atrio.addAttrezzo(osso);
-
-		// il gioco comincia nell'atrio
-        entrata = atrio;  
-		uscita = biblioteca;
-    }
-    
-    public Stanza getEntrata () {
-    	return this.entrata;
-    }
-    
-    public Stanza getUscita () {
-    	return this.uscita;
-    }
-    
+	public void setUscita(Stanza s) {
+		this.uscita=s;		
+	}
+	
+	public void setEntrata(Stanza s) {
+		this.entrata=s;
+	}
+	
+	public Stanza getEntrata() {
+		return this.entrata;
+	}
+	public Stanza getUscita() {
+		return this.uscita;
+	}
 }
