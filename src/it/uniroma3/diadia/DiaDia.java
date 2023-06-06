@@ -17,8 +17,7 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  *
  * Questa e' la classe principale crea e istanzia tutte le altre
  *
- * @author  docente di POO 
- *         (da un'idea di Michael Kolling and David J. Barnes) 
+ * @author  docente di POO  
  *          
  * @version base
  */
