@@ -17,7 +17,7 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  *
  * Questa e' la classe principale crea e istanzia tutte le altre
  *
- * @author  docente di POO  
+ * @author  docente di POO 
  *          
  * @version base
  */
